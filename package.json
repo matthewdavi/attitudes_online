@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "twitter": "^1.7.1",
+    "twitter-node-client": "^0.0.6"
+  }
+}
