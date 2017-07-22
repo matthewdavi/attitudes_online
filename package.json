@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "promise": "^8.0.1",
+    "sentiment": "^4.0.0",
     "twitter": "^1.7.1",
     "twitter-node-client": "^0.0.6"
   }
