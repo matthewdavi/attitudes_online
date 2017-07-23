@@ -1,55 +1,23 @@
-//@flow
-const Twitter = require(`twitter`);
-const client = require(`./config`);
-const sentiment = require(`sentiment`);
+//@Flow
+const grabScore = require('./grabScore');
+const score = grabScore('patatoreid');
 
-function readTweets(tweets, array){
- 	let lastID;
- 	tweets.forEach( function(tweet,index){
- 		if(index ===0){
- 			lastID = tweet.id
- 		}
- 		else if(tweet.id < lastID){
- 			lastID = tweet.id;
- 		}
- 			tweetArray.push(tweet)
- 			//console.log(tweetArray.length, tweet.text)
-
- 		
- })
- 		  	return Number(lastID)-1;
-
-}
-
-const getParams = function(max_id, username){
-	if (max_id === null || max_id === undefined){
-		return {screen_name:username, count: 200};
-	}
-
-	return {screen_name:username, count: 200, max_id: max_id};
-}
-
-	const getTweets = function(params){
-		client.get(`statuses/user_timeline`, params).then(function(tweets){
-			new Promise(reject, resolve) =>
-
-
-				let last = readTweets(tweets, []);
-				getTweets(getParams(last, params.screen_name))
-				resolve(tweets)
-		}).catch((error) => console.log(error))
-
-	}
-
-getTweets(getParams(null, `mtthwdvs`))
-
-const getSentiment = function(tweets){
-	let score = 0;
-	tweets.forEach(function(tweet, index){
-		score = score + sentiment(tweet).score
-		console.log(index)
-	})
-	console.log("this is your score: ", score)
-}
-
-
+//mtthwdvs: 520 --> 517
+//anitahitta: -188 --> -35
+//realdonaldtrump: --> 2716
+//loopzoop: -1771 --> -1516
+//xylesmavier: -171 --> -481
+//tracethmpsn: 1118 --> 421
+//trjstn: 69
+//riplimewire: -1354 --> -1349
+//sosadtoday: -1700
+//grubbyguy: 302
+//airhrs: 863
+//hillaryclinton: 2259
+//barackobama: 3471
+//berniesanders: 1206
+//PrisonPlanet: -3861
+//ByYourLogic: 48
+//briteboypls: 723
+//jameslinacre01: 1229
+//patatoreid: 656
