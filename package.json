@@ -1,8 +1,13 @@
 {
   "dependencies": {
-    "promise": "^8.0.1",
+    "express": "^4.15.4",
+    "global": "^4.3.2",
     "sentiment": "^4.0.0",
-    "twitter": "^1.7.1",
-    "twitter-node-client": "^0.0.6"
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "flow-remove-types": "^1.2.1"
   }
 }
