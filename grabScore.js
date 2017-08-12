@@ -1,12 +1,9 @@
 //@flow
-
 const grabScore = function(user) {
-
 	const Twitter = require(`twitter`);
 	const client = require('./config');
 	const sentiment = require(`sentiment`);
 	const tweetArray = [];
-
 	class Tweet {
 		constructor(text, id, username, statusCount) {
 			this.text = text;
@@ -16,7 +13,6 @@ const grabScore = function(user) {
 			this.total = statusCount
 		}
 	}
-
 	function readTweets(tweets, array) {
 		let lastID;
 		tweets.forEach(function(tweet, index) {
@@ -90,7 +86,6 @@ const grabScore = function(user) {
 		console.log("this is your score", newScore);
 		return newScore
 	}).catch((error) => console.log(error))
-
 
 }
 
