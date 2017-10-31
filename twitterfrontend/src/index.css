@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+body {
+  margin: 0;
+  padding: 0;
+  background: #eeeeee;
+}
+h1 {
+  font-family: futura;
+  color:#0288D1;
+  font-size:3em;
+}
+section#collection {
+  margin: 2em;
+}
+.App h1 {
+  font-family: Roboto;
+  color: ;
+}
+div.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
