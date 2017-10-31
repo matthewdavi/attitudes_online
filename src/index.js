@@ -1,9 +1,9 @@
 const grabScore = require('./grabScore');
 
 async function printScore(username){
-	const score = await grabScore(username);
+	const data = await grabScore(username);
 	console.log("finished fetching")
-	console.log(score, username);
+	console.log(data, username);
 }
 printScore(`mtthwdvs`);
 

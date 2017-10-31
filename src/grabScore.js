@@ -9,21 +9,24 @@ const grabScore = function(user: String) {
     text: string;
     id: number;
     username: string;
-    statusCount: number;
     score: number;
     total: number;
-    URL: string;
-    constructor(text: string, id: number, username: string, statusCount, url) {
+    url: string;
+    avi: string;
+    name: string;
+    constructor(text: string, id: number, username: string, statusCount: number, url: string, avi: string, name: string) {
       this.text = text;
       this.id = id;
       this.username = username;
       this.score = sentiment(text).score;
       this.total = statusCount;
-      this.URL = url;
+      this.url = url;
+      this.avi = avi;
+      this.name = name;
     }
   }
 
-  function readTweets(tweets, array) {
+  function readTweets(tweets, array): number {
     let lastID;
     tweets.forEach(function(tweet, index) {
       if (index === 0 || tweet.id < lastID) {
@@ -33,9 +36,11 @@ const grabScore = function(user: String) {
         new Tweet(
           tweet.text,
           tweet.id,
-          tweet.screen_name,
+          tweet.user.screen_name,
           tweet.user.statuses_count,
-          "empty string"
+          `https://www.twitter.com/${tweet.user.screen_name}/statuses/${tweet.id_str}`,
+          tweet.user.profile_image_url_https,
+          tweet.user.name
         )
       );
     });
@@ -76,25 +81,29 @@ const grabScore = function(user: String) {
           getTweets(getParams(last, params.screen_name), cb);
         }
       })
-      .catch(error => console.log(error));
-    /* (if (tweetArray[0] !== undefined) {
-      if (
-        tweetArray.length >= 1000 ||
-        tweetArray.length >= tweetArray[0].total - 50
-      ) {
-        cb(tweetArray);
-        return;
-      }
-    }  */
+      .catch(function(error){
+        console.log(error + " uh oh!");
+        tweetArray.push(new Tweet());
+      });
+    
+
   };
 
   const newTweets = new Promise((resolve, reject) => {
     getTweets(getParams(null, user), resolve);
   });
 
-  const getData = function(tweetArray: ?Array<Tweet>): Object {
+  const getData = function(tweetArray: ?Array<Tweet>) {
     let data = {};
+    
     if (tweetArray !== null && tweetArray !== undefined) {
+      if(tweetArray.length ===0 || tweetArray === null || tweetArray === undefined){
+        data.min="https://twitter.com/realdonaldtrump/status/332308211321425920?";
+        data.max = "https://twitter.com/hillaryclinton/status/791263939015376902?lang=en";
+        data.avi="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png";
+        data.name="Whoa! it looks like you typed in a name that doesn't have a twitter account associated with it"
+        data.score = 0;
+      }
       const score = tweetArray.reduce((a, b) => a + b.score, 0);
       data.score = Math.floor(score / tweetArray.length * 3200);
       let minTweet: Tweet = tweetArray[0];
@@ -107,8 +116,10 @@ const grabScore = function(user: String) {
           maxTweet = tweet;
         }
       });
-      data.min = minTweet.text;
-      data.max = maxTweet.text;
+      data.min = minTweet.url;
+      data.max = maxTweet.url;
+      data.avi = tweetArray[0].avi;
+      data.name = tweetArray[0].name;
       return data;
     }
   };
