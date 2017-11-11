@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
 body {
   margin: 0;
   padding: 0;
   background: #eeeeee;
 }
-h1 {
+h1{
   font-family: futura;
   color:#0288D1;
   font-size:3em;
+}
+h2{
+  font-family:futura;
+  font-size:1em;
+  color:dodgerblue;
 }
 section#collection {
   margin: 2em;
