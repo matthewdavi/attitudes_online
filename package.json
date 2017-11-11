@@ -17,5 +17,8 @@
     "build": "babel src/ --out-dir dist/ --no-babelrc --presets=flow --ignore spec.js",
     "dev": "yarn run build && node dist/backend.js",
     "start": "node dist/backend.js"
+  },
+  "engines": {
+    "node": "8.1.2"
   }
 }
