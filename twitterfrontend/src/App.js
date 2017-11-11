@@ -121,6 +121,9 @@ class Box extends React.Component {
           let newList = this.state.list;
           newList.unshift(data);
           this.setState({ list: newList });
+          if(newList.length >= 4){
+            newList.pop();
+          }
         })
         .then(data => {
           load.pop();
