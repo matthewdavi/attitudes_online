@@ -4,7 +4,7 @@ const grabScore = function(user: String) {
   const client = require('./config');
   const sentiment = require('sentiment');
   const tweetArray = [];
-
+  let invalid;
   class Tweet {
     text: string;
     id: number;
@@ -14,7 +14,15 @@ const grabScore = function(user: String) {
     url: string;
     avi: string;
     name: string;
-    constructor(text: string, id: number, username: string, statusCount: number, url: string, avi: string, name: string) {
+    constructor(
+      text: string,
+      id: number,
+      username: string,
+      statusCount: number,
+      url: string,
+      avi: string,
+      name: string
+    ) {
       this.text = text;
       this.id = id;
       this.username = username;
@@ -38,7 +46,8 @@ const grabScore = function(user: String) {
           tweet.id,
           tweet.user.screen_name,
           tweet.user.statuses_count,
-          `https://www.twitter.com/${tweet.user.screen_name}/statuses/${tweet.id_str}`,
+          `https://www.twitter.com/${tweet.user
+            .screen_name}/statuses/${tweet.id_str}`,
           tweet.user.profile_image_url_https,
           tweet.user.name
         )
@@ -63,6 +72,7 @@ const grabScore = function(user: String) {
   };
 
   const getTweets = function(params, cb) {
+    console.log('valid running');
     if (!params.hasOwnProperty('max_id')) {
       const tweetArray = [];
     }
@@ -81,12 +91,11 @@ const grabScore = function(user: String) {
           getTweets(getParams(last, params.screen_name), cb);
         }
       })
-      .catch(function(error){
-        console.log(error + " uh oh!");
-        tweetArray.push(new Tweet());
+      .catch(function(error) {
+        console.log(error + ' uh oh!');
+        invalid = true;
+        cb(null);
       });
-    
-
   };
 
   const newTweets = new Promise((resolve, reject) => {
@@ -95,15 +104,20 @@ const grabScore = function(user: String) {
 
   const getData = function(tweetArray: ?Array<Tweet>) {
     let data = {};
-    
+    if (invalid) {
+      data.min =
+        'https://twitter.com/realdonaldtrump/status/332308211321425920?';
+      data.max =
+        'https://twitter.com/hillaryclinton/status/791263939015376902?lang=en';
+      data.avi =
+        'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';
+      data.name =
+        "This account is either protected, or doesn't exist.";
+      data.score = 0;
+      return data;
+    }
     if (tweetArray !== null && tweetArray !== undefined) {
-      if(tweetArray.length ===0 || tweetArray === null || tweetArray === undefined){
-        data.min="https://twitter.com/realdonaldtrump/status/332308211321425920?";
-        data.max = "https://twitter.com/hillaryclinton/status/791263939015376902?lang=en";
-        data.avi="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png";
-        data.name="Whoa! it looks like you typed in a name that doesn't have a twitter account associated with it"
-        data.score = 0;
-      }
+      console.log('its not empty');
       const score = tweetArray.reduce((a, b) => a + b.score, 0);
       data.score = Math.floor(score / tweetArray.length * 3200);
       let minTweet: Tweet = tweetArray[0];
