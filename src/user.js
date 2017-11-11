@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
-let tweetSchema = mongoose.Schema({
-  text: {
-    type: String,
-    required: true
-  },
-  id: {
-    type: Number,
-    required: true
-  },
-  username: {
+let userSchema = mongoose.Schema({
+  user: {
     type: String,
     required: true
   },
@@ -16,11 +8,11 @@ let tweetSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  total: {
-    type: Number,
+  mostNegative: {
+    type: String,
     required: true
   },
-  url: {
+  mostPositive: {
     type: String,
     required: true
   },
@@ -33,4 +25,4 @@ let tweetSchema = mongoose.Schema({
     required: true
   }
 });
-let Tweet = module.exports = mongoose.model('Tweet', tweetSchema);
+module.exports = mongoose.model('User', userSchema);

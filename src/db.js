@@ -1,16 +1,6 @@
-const dataBase = function(req) {
-  const mongoose = require('mongoose');
-  const Article = require('./tweets.js');
-  mongoose.connect('mongodb://localhost/nodekb', {
-    useMongoClient: true
-  });
-  const db = mongoose.connection;
-  db.once('open', function() {
-    console.log('Connected to MongoDB');
-  });
-
-  db.on('error', function(error) {
-    console.log(error);
-  });
+const dataBase = function(data) {
+  const User = require('./user.js');
+  const newUser = new User(JSON.parse(data));
+  newUser.save();
 };
 module.exports = dataBase;

@@ -1,4 +1,3 @@
-//@flow
 const serverScore = require('./serverScore');
 const express = require('express');
 const app = express();

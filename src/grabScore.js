@@ -83,7 +83,7 @@ const grabScore = function(user: String) {
         if (tweetArray[0] === undefined) {
           cb(null);
         } else if (
-          tweetArray.length >= 1000 ||
+          tweetArray.length >= 600 ||
           tweetArray.length >= tweetArray[0].total - 50
         ) {
           cb(tweetArray);
