@@ -14,8 +14,6 @@
     "flow-remove-types": "^1.2.1"
   },
   "scripts": {
-    "build": "babel src/ --out-dir dist/ --no-babelrc --presets=flow --ignore spec.js",
-    "dev": "yarn run build && node dist/backend.js",
     "start": "node backend.js"
   }
 }
